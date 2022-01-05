@@ -7,7 +7,7 @@ from common.optimizer import *
 class Trainer:
     """신경망 훈련을 대신 해주는 클래스
     """
-    def __init__(self, network, x_train, y_train, x_test, t_test,
+    def __init__(self, network, x_train, t_train, x_test, t_test,
             epochs=20, mini_batch_size=100,
             optimizer='SGD', optimizer_param={'lr':0.01},
             evaluate_sample_num_per_epoch=None, verbose=True):
@@ -22,9 +22,9 @@ class Trainer:
         self.evaluate_sample_num_per_epoch = evaluate_sample_num_per_epoch
 
         #optimizer
-        optimizer_class_dict = {'sgd':SGD, 'momentum':Momemtum, 'nesterov':Nesterov,
+        optimizer_class_dict = {'sgd':SGD, 'momentum':Momentum, 'nesterov':Nesterov,
                 'adagrad':AdaGrad, 'rmsprpo': RMSprop, 'adam': Adam}
-        self.optimzer = optimizer_class_dict[optimizer.lower()](**optimizer_param)
+        self.optimizer = optimizer_class_dict[optimizer.lower()](**optimizer_param)
 
         self.train_size = x_train.shape[0]
         self.iter_per_epoch = max(self.train_size / mini_batch_size, 1)
